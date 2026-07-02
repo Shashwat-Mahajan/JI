@@ -1,0 +1,25 @@
+{
+  "groq_api_key": "your-groq-api-key",
+  "email_enabled": false,
+  "email_from": "you@example.com",
+  "email_to": "you@example.com",
+  "smtp_host": "smtp-relay.brevo.com",
+  "smtp_port": 587,
+  "smtp_user": "your-brevo-smtp-login",
+  "smtp_pass": "your-brevo-smtp-password",
+  "location": "India",
+  "llm_batch_size": 10,
+  "include_internships": true,
+  "search_keywords": [
+    "generative AI engineer fresher",
+    "generative AI intern",
+    "LLM engineer intern",
+    "AI engineer intern",
+    "machine learning engineer fresher",
+    "machine learning intern",
+    "software engineer intern india",
+    "backend developer intern python",
+    "SDE fresher 2027 india",
+    "SDE intern india"
+  ]
+}

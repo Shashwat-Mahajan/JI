@@ -1,0 +1,38 @@
+name: Job Intel — Daily Run
+
+on:
+  schedule:
+    - cron: '30 2 * * *'   # 08:00 AM IST = 02:30 UTC
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Job Intel Agent
+        run: python main.py
+        env:
+          GOOGLE_AI_API_KEY:   ${{ secrets.GOOGLE_AI_API_KEY }}
+          NVIDIA_NIM_API_KEY:  ${{ secrets.NVIDIA_NIM_API_KEY }}
+          EMAIL_FROM:          ${{ secrets.EMAIL_FROM }}
+          EMAIL_TO:            ${{ secrets.EMAIL_TO }}
+          SMTP_USER:           ${{ secrets.SMTP_USER }}
+          SMTP_PASS:           ${{ secrets.SMTP_PASS }}
+
+      - name: Commit seen_jobs.json and report back to repo
+        run: |
+          git config user.name "job-intel-bot"
+          git config user.email "actions@github.com"
+          git add logs/seen_jobs.json reports/ || true
+          git diff --staged --quiet || git commit -m "chore: daily run $(date +%Y-%m-%d)"
+          git push || true

@@ -1,0 +1,168 @@
+{
+  "name": "Rushabh Thakurdware",
+  "email": "rushabhthakurdware@gmail.com",
+  "phone": "+91 9172118978",
+  "linkedin": "rushabhthakurdware",
+  "github": "rushabhthakurdware",
+  "education": {
+    "degree": "B. TECH",
+    "branch": "COMPUTER SCIENCE ENGINEERING",
+    "college": "YESHWANTRAO CHAVAN COLLEGE OF ENGINEERING",
+    "graduation_year": "2027",
+    "cgpa": "8.15"
+  },
+  "current_status": "B. TECH IN COMPUTER SCIENCE ENGINEERING (EXPECTED JUNE 2027) - Java Intern at Data Alchemy PVT LTP",
+  "technical_skills": {
+    "primary_languages": [
+      "Java",
+      "JavaScript",
+      "Python"
+    ],
+    "ai_ml": [
+      "Gemini/Ollama"
+    ],
+    "backend": [
+      "Spring Boot",
+      "Java",
+      "Node js",
+      "Express js"
+    ],
+    "cloud_devops": [
+      "Docker"
+    ],
+    "databases": [
+      "MySQL",
+      "PostgreSQL",
+      "Mongo DB"
+    ],
+    "frontend": [
+      "React js",
+      "Html",
+      "CSS"
+    ],
+    "other": [
+      "C",
+      "C++",
+      "Rust",
+      "Three JS",
+      "Swing",
+      "Streamlit"
+    ]
+  },
+  "competitive_programming": {
+    "leetcode_rating": "",
+    "leetcode_problems": "more than 14 badges",
+    "codechef_rating": "",
+    "other": ""
+  },
+  "projects": [
+    {
+      "name": "CODELENS",
+      "description": "Distributed AI-as-a-Service application for automated codebase analysis",
+      "tech_stack": [
+        "Spring Boot",
+        "React",
+        "SQL",
+        "Python"
+      ],
+      "highlights": [
+        "Integrated Gemini/Ollama",
+        "Custom File-Walker algorithm",
+        "RESTful pipeline"
+      ],
+      "status": "completed"
+    },
+    {
+      "name": "E-Commerce Backend System",
+      "description": "Scalable backend system for E-Commerce platform",
+      "tech_stack": [
+        "Java",
+        "Spring Boot",
+        "PostgreSQL",
+        "Rest Api"
+      ],
+      "highlights": [
+        "Implemented RESTful APIs",
+        "Integrated database operations using JPA/Hibernate"
+      ],
+      "status": "completed"
+    }
+  ],
+  "experience": [
+    {
+      "role": "Java Intern",
+      "company": "Data Alchemy PVT LTP",
+      "duration": "18 Feb 26 - Current",
+      "description": [
+        "Engineered robust backend applications using Java and Spring Boot",
+        "Designed and integrated interactive desktop application components using Swing library",
+        "Partnered with cross-functional development teams to deploy scalable software solutions"
+      ]
+    },
+    {
+      "role": "SAP Intern",
+      "company": "Excel Controlinkage PVT LTP",
+      "duration": "21 June 25 \u2013 21 July 25",
+      "description": [
+        "Gained hands-on experience in SAP MM and ABAP",
+        "Worked on real-time client requirements",
+        "Developed a strong foundation in enterprise-level business process management"
+      ]
+    }
+  ],
+  "achievements": [
+    "Runner-up in SVPCET Hackathon",
+    "Finalist of Central India Hackathon",
+    "Led a team in Smart India Hackathon",
+    "Earn more than 14 badges of Leetcode"
+  ],
+  "hackathons": [
+    {
+      "name": "SVPCET Hackathon",
+      "result": "Runner-up",
+      "description": ""
+    },
+    {
+      "name": "Central India Hackathon",
+      "result": "Finalist",
+      "description": ""
+    },
+    {
+      "name": "Smart India Hackathon",
+      "result": "Participant",
+      "description": "Developed Smart Attendance System Using QR"
+    }
+  ],
+  "publications": [],
+  "target_roles": [
+    "Software Engineer",
+    "Full Stack Developer",
+    "Backend Engineer",
+    "Java Developer",
+    "SDE"
+  ],
+  "target_companies": [],
+  "location_preferences": [
+    "Nagpur, India",
+    "Remote India"
+  ],
+  "graduation_batch": "2027",
+  "experience_level": "fresher",
+  "max_experience_years": 1,
+  "role_type_exclusions": [
+    "SAP/ERP consultant roles",
+    "pure frontend roles",
+    "non-technical roles"
+  ],
+  "hard_vetoes": [
+    {
+      "veto": "High experience requirements (> 5 years)",
+      "resume_evidence": "Fresher with expected graduation in 2027"
+    },
+    {
+      "veto": "Roles requiring expertise in completely different tech stack (e.g. .NET, Ruby)",
+      "resume_evidence": "Primary tech stack includes Java, Spring Boot, React, Python"
+    }
+  ],
+  "_scoring_prompt": "CANDIDATE: Rushabh Thakurdware\nSTATUS: B. TECH IN COMPUTER SCIENCE ENGINEERING (EXPECTED JUNE 2027) - Java Intern at Data Alchemy PVT LTP\nEDUCATION: B. TECH in COMPUTER SCIENCE ENGINEERING from YESHWANTRAO CHAVAN COLLEGE OF ENGINEERING\nGRADUATION: 2027 batch | CGPA: 8.15\nEXPERIENCE LEVEL: fresher (max 1 years)\n\nTECHNICAL SKILLS:\nJava, JavaScript, Python, Gemini/Ollama, Spring Boot, Java, Node js, Express js, Docker, MySQL, PostgreSQL, Mongo DB, React js, Html, CSS, C, C++, Rust, Three JS, Swing, Streamlit\n\nCOMPETITIVE PROGRAMMING:\nLeetCode:  rating, more than 14 badges problems solved\nCodeChef: \n\n\nKEY PROJECTS:\n- CODELENS: Distributed AI-as-a-Service application for automated codebase analysis Stack: Spring Boot, React, SQL, Python. Integrated Gemini/Ollama; Custom File-Walker algorithm; RESTful pipeline\n- E-Commerce Backend System: Scalable backend system for E-Commerce platform Stack: Java, Spring Boot, PostgreSQL, Rest Api. Implemented RESTful APIs; Integrated database operations using JPA/Hibernate\n\nWORK EXPERIENCE:\n- Java Intern at Data Alchemy PVT LTP (18 Feb 26 - Current): ['Engineered robust backend applications using Java and Spring Boot', 'Designed and integrated interactive desktop application components using Swing library', 'Partnered with cross-functional development teams to deploy scalable software solutions']\n- SAP Intern at Excel Controlinkage PVT LTP (21 June 25 \u2013 21 July 25): ['Gained hands-on experience in SAP MM and ABAP', 'Worked on real-time client requirements', 'Developed a strong foundation in enterprise-level business process management']\n\nACHIEVEMENTS: Runner-up in SVPCET Hackathon; Finalist of Central India Hackathon; Led a team in Smart India Hackathon; Earn more than 14 badges of Leetcode\nHACKATHONS: SVPCET Hackathon (Runner-up); Central India Hackathon (Finalist); Smart India Hackathon (Participant)\nPUBLICATIONS: \n\nTARGET ROLES (priority order, derived from resume evidence): Software Engineer, Full Stack Developer, Backend Engineer, Java Developer, SDE\nTARGET COMPANIES: no explicit preference \u2014 any reputable tech company\nPREFERRED LOCATIONS: Nagpur, India, Remote India\n\nROLE TYPE EXCLUSIONS (this candidate wants HANDS-ON ENGINEERING work, NOT these):\nSAP/ERP consultant roles, pure frontend roles, non-technical roles\n\nHARD VETOES (auto-disqualify, each tied to resume evidence):\n- High experience requirements (> 5 years) (evidence: Fresher with expected graduation in 2027)\n- Roles requiring expertise in completely different tech stack (e.g. .NET, Ruby) (evidence: Primary tech stack includes Java, Spring Boot, React, Python)"
+}
