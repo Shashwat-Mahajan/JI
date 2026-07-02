@@ -29,6 +29,7 @@ except Exception as e:
 
 import logging
 from datetime import date
+from pathlib import Path
 
 from utils import setup_logging, load_config, load_profile, get_search_keywords
 
