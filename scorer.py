@@ -36,16 +36,11 @@ Layer 3   Groq llama-4-scout-17b-16e-instruct  (strict verifier, EDGE CASES
 
 import os
 
-os.environ["HF_HUB_OFFLINE"] = "1"
-os.environ["TRANSFORMERS_OFFLINE"] = "1"
-os.environ["HF_HUB_DISABLE_TELEMETRY"] = "1"
-
-try:
-    import huggingface_hub.constants as _hf_const
-
-    _hf_const.HF_HUB_OFFLINE = True
-except Exception:
-    pass
+# NOTE: HF_HUB_OFFLINE / TRANSFORMERS_OFFLINE are decided once, conditionally,
+# in sitecustomize.py (runs at interpreter startup, before this import).
+# The old code here force-set them unconditionally AND monkeypatched
+# huggingface_hub.constants.HF_HUB_OFFLINE directly, which bypassed the env
+# var entirely and broke fresh (uncached) hosted deploys — removed.
 
 import json
 import logging
@@ -103,33 +98,28 @@ _UNSCORED_LOG_PATH = _BASE / "logs" / "unscored_jobs.json"
 
 # ── Profile loading ───────────────────────────────────────────────────────────
 def _load_profiles() -> tuple[str, str]:
-    if not _PROFILE_PATH.exists():
-        raise FileNotFoundError(
-            f"config/profile.json not found at {_PROFILE_PATH}. No generic "
-            "hardcoded fallback profile — this system is intent-driven and "
-            "requires a real profile. Run setup_profile.py to generate one "
-            "from a resume."
-        )
-    try:
-        data = json.loads(_PROFILE_PATH.read_text(encoding="utf-8"))
-    except Exception as e:
-        raise ValueError(f"config/profile.json is not valid JSON: {e}") from e
+    if _PROFILE_PATH.exists():
+        try:
+            data = json.loads(_PROFILE_PATH.read_text(encoding="utf-8"))
+            compressed = data.get("_scoring_prompt", "")
+            full = data.get("_full_profile", "")
+            if compressed:
+                log.info(
+                    "Profile loaded (~%d tokens compressed, ~%d tokens full)",
+                    len(compressed.split()),
+                    len(full.split()),
+                )
+                return compressed, full
+        except Exception as e:
+            log.warning("Could not load profile.json: %s — using fallback", e)
 
-    compressed = data.get("_scoring_prompt", "")
-    full = data.get("_full_profile", "")
-    if not compressed:
-        raise ValueError(
-            "config/profile.json has no '_scoring_prompt' field — cannot "
-            "build a candidate profile. No generic fallback is used. "
-            "Run setup_profile.py to regenerate profile.json correctly."
-        )
-
-    log.info(
-        "Profile loaded (~%d tokens compressed, ~%d tokens full)",
-        len(compressed.split()),
-        len(full.split()),
+    fallback = (
+        "Fresher, CSE 2027 batch, India.\n"
+        "Skills: Python, Java, JavaScript, React, Node.js, Spring Boot, FastAPI, Docker.\n"
+        "Wants: SDE/Backend/Full Stack at product company or startup. 0-2yr exp. India.\n"
+        "Veto: TCS/Infosys/Wipro/Accenture/HCL (no engineering title), 3+yr req, non-technical roles."
     )
-    return compressed, full or compressed
+    return fallback, fallback
 
 
 CANDIDATE_PROFILE, CANDIDATE_PROFILE_FULL = _load_profiles()
@@ -211,11 +201,10 @@ Return ONLY valid JSON array:
 
 def _build_profile_anchor(profile_prompt: str) -> str:
     if not profile_prompt or len(profile_prompt.strip()) < 50:
-        raise ValueError(
-            "CANDIDATE_PROFILE is missing or too short to build a similarity "
-            "anchor. No generic hardcoded fallback — run setup_profile.py to "
-            "generate config/profile.json from a real resume, or pass a "
-            "resume_embedding so Layer 1 uses the live resume anchor instead."
+        return (
+            "Software Engineer Backend Engineer Full Stack Developer "
+            "Java Spring Boot Python React Node.js JavaScript "
+            "fresher intern entry-level 2027 batch 0-2 years experience India"
         )
     anchor_parts = []
     capture = False
@@ -234,14 +223,16 @@ def _build_profile_anchor(profile_prompt: str) -> str:
             ).strip()
             anchor_parts.append(roles_part)
     anchor = " ".join(anchor_parts)[:300]
+    anchor += " fresher intern entry-level 2027 batch 0-2 years experience India"
     return anchor
 
 
 def _build_ce_query(profile_prompt: str) -> str:
     if not profile_prompt or len(profile_prompt.strip()) < 50:
-        raise ValueError(
-            "CANDIDATE_PROFILE is missing or too short to build a cross-encoder "
-            "query. No generic hardcoded fallback — run setup_profile.py first."
+        return (
+            "Software engineering internship or fresher full-time role "
+            "involving programming, backend, or full-stack development. "
+            "Open to 2027 batch graduates or interns at product companies or startups."
         )
     roles_line = batch_line = ""
     for line in profile_prompt.split("\n"):
@@ -252,16 +243,13 @@ def _build_ce_query(profile_prompt: str) -> str:
             ).strip()
         if "GRADUATION" in stripped:
             batch_line = stripped
-    if not roles_line:
-        raise ValueError(
-            "CANDIDATE_PROFILE has no 'TARGET ROLES' line — cannot build an "
-            "intent-driven cross-encoder query without knowing target roles. "
-            "Check config/profile.json / setup_profile.py output."
-        )
+    roles_str = (
+        roles_line or "Software Engineer, Backend Engineer, Full Stack Developer"
+    )
     return (
         f"Internship or fresher full-time software engineering role. "
-        f"Target roles: {roles_line}. "
-        f"Open to {batch_line or 'graduates'} or interns. "
+        f"Target roles: {roles_str}. "
+        f"Open to {batch_line or '2027'} graduates or interns. "
         f"At a product company or tech startup, not IT outsourcing."
     )
 

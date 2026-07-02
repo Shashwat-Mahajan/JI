@@ -11,20 +11,11 @@ v2.4 / v2.3 / v2.2 — see git history.
 """
 
 import os
-from pathlib import Path
 
-# Only force offline mode if the HF cache already has the models downloaded.
-# On a fresh host (first deploy, or Streamlit Cloud's ephemeral disk after a
-# restart) there's no cache yet — forcing offline here makes model loading
-# fail outright instead of downloading once and caching for next time.
-_hf_cache = Path(os.getenv("HF_HOME", Path.home() / ".cache" / "huggingface"))
-_has_cache = _hf_cache.exists() and any(_hf_cache.rglob("*.safetensors"))
-
-if _has_cache:
-    os.environ["TRANSFORMERS_OFFLINE"] = "1"
-    os.environ["HF_HUB_OFFLINE"] = "1"
-os.environ["HF_HUB_DISABLE_TELEMETRY"] = "1"
-os.environ["HF_HUB_DISABLE_PROGRESS_BARS"] = "1"
+# NOTE: HF_HUB_OFFLINE / TRANSFORMERS_OFFLINE are set (conditionally) in
+# sitecustomize.py, which runs before this file even starts executing.
+# Do not set them again here — a second, unconditional copy is what broke
+# the hosted deploy previously (it forced offline mode even with no cache).
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 os.environ["NO_PROXY"] = "huggingface.co,cdn-lfs.huggingface.co"
 
