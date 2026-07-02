@@ -75,7 +75,7 @@ RESUME TEXT:
 def _extract_structured_fields(resume_text: str, cfg: dict) -> dict:
     register_keys_from_config(cfg)
     prompt = _EXTRACTION_PROMPT.replace("{resume_text}", resume_text[:8000])
-    raw = call_llm_with_fallback(
+    raw, provider = call_llm_with_fallback(
         system_prompt="You are a precise resume-parsing assistant. Output JSON only.",
         user_content=prompt,
     )

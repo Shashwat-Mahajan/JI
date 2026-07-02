@@ -11,9 +11,18 @@ v2.4 / v2.3 / v2.2 — see git history.
 """
 
 import os
+from pathlib import Path
 
-os.environ["TRANSFORMERS_OFFLINE"] = "1"
-os.environ["HF_HUB_OFFLINE"] = "1"
+# Only force offline mode if the HF cache already has the models downloaded.
+# On a fresh host (first deploy, or Streamlit Cloud's ephemeral disk after a
+# restart) there's no cache yet — forcing offline here makes model loading
+# fail outright instead of downloading once and caching for next time.
+_hf_cache = Path(os.getenv("HF_HOME", Path.home() / ".cache" / "huggingface"))
+_has_cache = _hf_cache.exists() and any(_hf_cache.rglob("*.safetensors"))
+
+if _has_cache:
+    os.environ["TRANSFORMERS_OFFLINE"] = "1"
+    os.environ["HF_HUB_OFFLINE"] = "1"
 os.environ["HF_HUB_DISABLE_TELEMETRY"] = "1"
 os.environ["HF_HUB_DISABLE_PROGRESS_BARS"] = "1"
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
@@ -29,7 +38,6 @@ except Exception as e:
 
 import logging
 from datetime import date
-from pathlib import Path
 
 from utils import setup_logging, load_config, load_profile, get_search_keywords
 
